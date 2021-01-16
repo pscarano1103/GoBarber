@@ -1,4 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+} from 'react';
 // eslint-disable-next-line no-unused-vars
 import { TextInputProps } from 'react-native';
 import { useField } from '@unform/core';
@@ -13,12 +18,23 @@ interface InputValueReference {
   value: srting;
 }
 
-const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
+interface InputRef {
+  focus(): void;
+}
+const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
+  { name, icon, ...rest },
+  ref,
+) => {
   const inputElementRef = useRef<any>(null);
-  const {
- registerField, defaultValue = '', fieldName, error
+  const { registerField, defaultValue = '', fieldName, error
 } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputElementRef.current.focus();
+    },
+  }));
 
   useEffect(() => {
     registerField<string>({
@@ -42,7 +58,7 @@ const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
         ref={inputElementRef}
         placeholderTextColor="#666360"
         defaultValue={defaultValue}
-        onChangeText={value => {
+        onChangeText={(value) => {
           inputValueRef.current.value = value;
         }}
         {...rest}
@@ -51,4 +67,4 @@ const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
   );
 };
 
-export default Input;
+export default forwardRef(Input);

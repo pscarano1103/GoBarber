@@ -1,3 +1,4 @@
+
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -14,8 +15,14 @@ export default class SessionsController {
       password,
     });
 
-    delete user.password;
+    const userWithoutPassword = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+    };
 
-    return response.json({ user, token });
+    return response.json({ user: userWithoutPassword, token });
   }
 }

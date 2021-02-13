@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 
-export default class UsersController {
+export default class UserAvatarController {
   public async update(request: Request, response: Response): Promise<Response> {
     const updateUserAvatar = container.resolve(UpdateUserAvatarService);
 
@@ -12,8 +12,14 @@ export default class UsersController {
       avatarFilename: request.file.filename,
     });
 
-    delete user.password;
+    const userWithoutPassword = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+    };
 
-    return response.json(user);
+    return response.json(userWithoutPassword);
   }
 }

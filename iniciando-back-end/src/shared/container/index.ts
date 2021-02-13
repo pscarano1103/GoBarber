@@ -1,4 +1,4 @@
-import { container } from 'tsyringe';
+import { container, delay } from 'tsyringe';
 
 import '@modules/users/providers';
 import './providers';
@@ -24,5 +24,5 @@ container.registerSingleton<IUsersRepository>(
 
 container.registerSingleton<IUserTokensRepository>(
   'UserTokensRepository',
-  UserTokensRepository,
+   UserTokensRepository,
 );

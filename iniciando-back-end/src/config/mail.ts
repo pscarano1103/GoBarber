@@ -14,7 +14,7 @@ export default {
 
   defaults: {
     from: {
-      email: 'paulo@techdev.com',
+      email: 'pauloscarano@tecdev.site',
       name: 'Paulo da TechDev',
     },
   },

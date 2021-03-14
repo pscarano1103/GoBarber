@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { FlatList } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
@@ -49,7 +50,7 @@ export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
 `;
 
 export const ProviderContainer = styled(RectButton)<ProviderContainerProps>`
-  background: ${(props) => (props.selected ? '#ff9000' : '#3e3b47')};
+  background: ${props => (props.selected ? '#ff9000' : '#3e3b47')};
   align-items: center;
   flex-direction: row;
   padding: 8px 12px;
@@ -65,6 +66,6 @@ export const ProviderAvatar = styled.Image`
 
 export const ProviderName = styled.Text<ProviderNameProps>`
   margin-left: 8px;
-  color: ${(props) => (props.selected ? '#232129' : '#f4ede8')};
+  color: ${props => (props.selected ? '#232129' : '#f4ede8')};
   font-family: 'RobotoSlab-Regular';
 `;

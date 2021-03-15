@@ -1,8 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+
+import User from '@modules/users/infra/typeorm/entities/User';
 import { classToClass } from 'class-transformer';
 
 interface IRequest {
@@ -21,9 +22,10 @@ class ListProvidersService {
 
   public async execute({ user_id }: IRequest): Promise<User[]> {
     let users = await this.cacheProvider.recover<User[]>(
-      `providers-list:${user_id}`,
+     `providers-list:${user_id}`,
     );
 
+    //let users;
     if (!users) {
       users = await this.usersRepository.findAllProviders({
         except_user_id: user_id,
